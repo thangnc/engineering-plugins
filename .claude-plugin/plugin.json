@@ -1,7 +1,7 @@
 {
   "name": "cloud-infrastructure",
   "version": "1.0.0",
-  "description": "Manage AWS, Terraform, Kubernetes, GCP, Azure, Vercel, Supabase, Render, Railway, and Upstash — inspect resources, deploy changes, view logs, and troubleshoot issues across all your cloud platforms.",
+  "description": "Terraform/OpenTofu specialist for AWS, Azure, GCP, and modern platforms (Vercel, Railway, Render, Supabase, Upstash). Covers IaC authoring, module design, remote state, CI/CD pipelines, and full-stack environment wiring.",
   "author": {
     "name": "thangnc",
     "url": "https://github.com/thangnc"
@@ -9,10 +9,23 @@
   "repository": "https://github.com/thangnc/cloud-infrastructure",
   "license": "MIT",
   "keywords": [
-    "aws", "terraform", "kubernetes", "k8s", "gcp", "azure",
-    "vercel", "supabase", "render", "railway", "upstash",
-    "infrastructure", "devops", "cloud", "deployment", "iac"
+    "terraform",
+    "opentofu",
+    "iac",
+    "hcl",
+    "aws",
+    "azure",
+    "gcp",
+    "vercel",
+    "supabase",
+    "render",
+    "railway",
+    "upstash",
+    "infrastructure",
+    "devops",
+    "cloud",
+    "modules",
+    "state"
   ],
-  "skills": "../skills/",
-  "commands": "../commands/"
+  "skills": "./skills/"
 }

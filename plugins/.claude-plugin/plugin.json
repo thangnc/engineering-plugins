@@ -1,0 +1,33 @@
+{
+  "name": "cloud-devops",
+  "version": "1.0.0",
+  "description": "Cloud infrastructure and DevOps skills for IaC, CI/CD, and platform engineering. Includes a Terraform/OpenTofu specialist covering AWS, Azure, GCP, and modern developer platforms (Vercel, Railway, Render, Supabase, Upstash).",
+  "author": {
+    "name": "thangnc",
+    "url": "https://github.com/thangnc"
+  },
+  "repository": "https://github.com/thangnc/engineering-plugins",
+  "license": "MIT",
+  "keywords": [
+    "terraform",
+    "opentofu",
+    "iac",
+    "hcl",
+    "aws",
+    "azure",
+    "gcp",
+    "vercel",
+    "supabase",
+    "render",
+    "railway",
+    "upstash",
+    "infrastructure",
+    "devops",
+    "cloud",
+    "modules",
+    "state",
+    "ci-cd",
+    "platform-engineering"
+  ],
+  "skills": "./cloud-devops/skills/"
+}

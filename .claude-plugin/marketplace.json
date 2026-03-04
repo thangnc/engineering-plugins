@@ -1,24 +1,24 @@
 {
-  "name": "cloud-infrastructure",
+  "name": "engineering-plugins",
   "owner": {
     "name": "thangnc",
     "url": "https://github.com/thangnc"
   },
   "metadata": {
-    "description": "Terraform/OpenTofu specialist for AWS, Azure, GCP, and modern platforms (Vercel, Railway, Render, Supabase, Upstash). Covers IaC authoring, module design, remote state, CI/CD pipelines, and full-stack environment wiring.",
+    "description": "A collection of Claude Code plugins for cloud infrastructure and DevOps engineering.",
     "version": "1.0.0"
   },
   "plugins": [
     {
-      "name": "cloud-infrastructure",
-      "source": "./",
-      "description": "Terraform/OpenTofu specialist for AWS, Azure, GCP, and modern platforms (Vercel, Railway, Render, Supabase, Upstash). Covers IaC authoring, module design, remote state, CI/CD pipelines, and full-stack environment wiring.",
+      "name": "cloud-devops",
+      "source": "./plugins",
+      "description": "Cloud infrastructure and DevOps skills for IaC, CI/CD, and platform engineering. Includes a Terraform/OpenTofu specialist covering AWS, Azure, GCP, and modern developer platforms (Vercel, Railway, Render, Supabase, Upstash).",
       "version": "1.0.0",
       "author": {
         "name": "thangnc",
         "url": "https://github.com/thangnc"
       },
-      "repository": "https://github.com/thangnc/cloud-infrastructure",
+      "repository": "https://github.com/thangnc/engineering-plugins",
       "license": "MIT",
       "keywords": [
         "terraform",
@@ -37,7 +37,9 @@
         "devops",
         "cloud",
         "modules",
-        "state"
+        "state",
+        "ci-cd",
+        "platform-engineering"
       ]
     }
   ]

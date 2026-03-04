@@ -1,10 +1,16 @@
-# Cloud Infrastructure Skills for Claude Code
+# Engineering Plugins for Claude Code
 
-A collection of Claude Code skills for managing cloud infrastructure — starting with a Terraform/OpenTofu specialist that covers traditional cloud providers and modern developer platforms.
+A monorepo of Claude Code plugins providing expert domain knowledge as skills. Each plugin lives under `plugins/` and is independently installable from the marketplace.
 
-## Skills
+## Plugins
 
-### `terraform-specialist`
+### `cloud-devops`
+
+Cloud infrastructure and DevOps skills — starting with a Terraform/OpenTofu specialist that covers traditional cloud providers and modern developer platforms.
+
+**Skills:**
+
+#### `terraform-specialist`
 
 Expert-level guidance for Terraform and OpenTofu — from writing your first resource block to enterprise module libraries with remote state, CI/CD pipelines, and multi-platform stacks.
 
@@ -17,17 +23,17 @@ Expert-level guidance for Terraform and OpenTofu — from writing your first res
 
 **What it covers:**
 
-| Topic               | Details                                               |
-|---------------------|-------------------------------------------------------|
-| Architecture patterns | Flat, workspaces, directory-per-env, Terragrunt     |
-| Module design       | Reusable modules, versioning, Terratest               |
-| State management    | S3, Azure Storage, GCS backends, migration, DR        |
-| CI/CD               | GitHub Actions, GitLab CI, Azure DevOps, Terraform Cloud |
-| Modern platforms    | Vercel, Railway, Render, Supabase, Upstash providers  |
-| Full-stack wiring   | Env var propagation across multi-provider stacks      |
-| Security            | Secrets management, least privilege, policy-as-code   |
+| Topic | Details |
+|---|---|
+| Architecture patterns | Flat, workspaces, directory-per-env, Terragrunt |
+| Module design | Reusable modules, versioning, Terratest |
+| State management | S3, Azure Storage, GCS backends, migration, DR |
+| CI/CD | GitHub Actions, GitLab CI, Azure DevOps, Terraform Cloud |
+| Modern platforms | Vercel, Railway, Render, Supabase, Upstash providers |
+| Full-stack wiring | Env var propagation across multi-provider stacks |
+| Security | Secrets management, least privilege, policy-as-code |
 
-**Reference documentation** (`skills/terraform-specialist/references/`):
+**Reference documentation** (`plugins/cloud-devops/skills/terraform-specialist/references/`):
 
 - `architecture-patterns.md` — Pattern comparison with decision matrices
 - `state-management.md` — Backend setup, migration, disaster recovery
@@ -37,14 +43,32 @@ Expert-level guidance for Terraform and OpenTofu — from writing your first res
 
 ## Installation
 
+Install from the marketplace:
+
 ```bash
-claude plugin install https://github.com/thangnc/cloud-infrastructure
+claude plugin install https://github.com/thangnc/engineering-plugins
 ```
 
-Or install locally:
+Or install locally (from this repo root):
 
 ```bash
-claude plugin install /path/to/cloud-infrastructure
+claude plugin install ./plugins
+```
+
+## Repository Structure
+
+```
+plugins/
+  .claude-plugin/
+    plugin.json          # Plugin manifest for the marketplace
+  cloud-devops/
+    skills/
+      terraform-specialist/
+        SKILL.md         # Trigger conditions + core instructions
+        references/      # Deep-dive documentation
+
+.claude-plugin/
+  marketplace.json       # Marketplace listing metadata
 ```
 
 ## Prerequisites

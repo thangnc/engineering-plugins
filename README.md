@@ -52,16 +52,16 @@ claude plugin install https://github.com/thangnc/engineering-plugins
 Or install locally (from this repo root):
 
 ```bash
-claude plugin install ./plugins
+claude plugin install ./plugins/cloud-devops
 ```
 
 ## Repository Structure
 
 ```
 plugins/
-  .claude-plugin/
-    plugin.json          # Plugin manifest for the marketplace
   cloud-devops/
+    .claude-plugin/
+      plugin.json        # Plugin manifest for the marketplace
     skills/
       terraform-specialist/
         SKILL.md         # Trigger conditions + core instructions

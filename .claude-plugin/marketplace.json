@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "cloud-devops",
-      "source": "./plugins",
+      "source": "./plugins/cloud-devops",
       "description": "Cloud infrastructure and DevOps skills for IaC, CI/CD, and platform engineering. Includes a Terraform/OpenTofu specialist covering AWS, Azure, GCP, and modern developer platforms (Vercel, Railway, Render, Supabase, Upstash).",
       "version": "1.0.0",
       "author": {

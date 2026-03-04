@@ -1,0 +1,30 @@
+{
+  "name": "cloud-infrastructure",
+  "owner": {
+    "name": "thangnc",
+    "url": "https://github.com/thangnc"
+  },
+  "metadata": {
+    "description": "Manage AWS, Terraform, Kubernetes, GCP, Azure, Vercel, Supabase, Render, Railway, and Upstash — inspect resources, deploy changes, view logs, and troubleshoot issues across all your cloud platforms.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "cloud-infrastructure",
+      "source": "./",
+      "description": "Manage AWS, Terraform, Kubernetes, GCP, Azure, Vercel, Supabase, Render, Railway, and Upstash — inspect resources, deploy changes, view logs, and troubleshoot issues across all your cloud platforms.",
+      "version": "1.0.0",
+      "author": {
+        "name": "thangnc",
+        "url": "https://github.com/thangnc"
+      },
+      "repository": "https://github.com/thangnc/cloud-infrastructure",
+      "license": "MIT",
+      "keywords": [
+        "aws", "terraform", "kubernetes", "k8s", "gcp", "azure",
+        "vercel", "supabase", "render", "railway", "upstash",
+        "infrastructure", "devops", "cloud", "deployment", "iac"
+      ]
+    }
+  ]
+}

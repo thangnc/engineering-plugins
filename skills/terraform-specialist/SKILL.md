@@ -1,11 +1,11 @@
 ---
 name: terraform-specialist
-description: Infrastructure as Code specialist for Terraform/OpenTofu. Use this skill whenever the user mentions Terraform, OpenTofu, .tf files, infrastructure as code (IaC), HCL, terraform plan/apply/import, state management, tfvars, modules, providers, workspaces, or remote backends. Also trigger when the user asks about provisioning cloud infrastructure (AWS, Azure, GCP), managing infrastructure drift, migrating existing resources to Terraform, designing reusable infrastructure modules, CI/CD for infrastructure changes, or multi-environment deployment strategies. Even if the user just says "deploy infrastructure" or "automate my cloud setup", consider using this skill. Covers everything from writing individual resources to designing enterprise-grade module libraries with remote state, policy-as-code, and GitOps workflows.
+description: Infrastructure as Code specialist for Terraform/OpenTofu covering traditional cloud (AWS, Azure, GCP) and modern developer platforms (Vercel, Railway, Render, Supabase, Upstash). Use this skill whenever the user mentions Terraform, OpenTofu, .tf files, IaC, HCL, terraform plan/apply/import, state management, tfvars, modules, providers, workspaces, or remote backends. Also trigger for provisioning cloud infrastructure, managing drift, importing resources, designing modules, CI/CD for infra changes, or multi-environment strategies. Trigger when managing Vercel projects/domains, Railway services, Render web services, Supabase projects/branches, or Upstash Redis/Kafka via Terraform. Even if the user just says "deploy infrastructure", "Terraform my Vercel project", or "IaC for my Next.js + Supabase stack", use this skill.
 ---
 
 # Terraform Specialist
 
-Expert-level guidance for Terraform and OpenTofu infrastructure automation — from writing your first resource block to designing enterprise module libraries with remote state, policy enforcement, and CI/CD pipelines.
+Expert-level guidance for Terraform and OpenTofu infrastructure automation — from traditional cloud providers (AWS, Azure, GCP) to modern developer platforms (Vercel, Railway, Render, Supabase, Upstash). Covers everything from writing your first resource block to designing enterprise module libraries with remote state, policy enforcement, and CI/CD pipelines.
 
 ## Core Philosophy
 
@@ -32,6 +32,8 @@ Use this skill for any Terraform-related task, including but not limited to:
 - Migrating between Terraform versions or from other IaC tools
 - Writing validation rules, policy-as-code, and governance
 - Optimizing Terraform performance for large-scale deployments
+- **Managing modern platform resources**: Vercel projects/domains/firewall, Railway services/variables, Render web services/databases, Supabase projects/settings/branches, Upstash Redis/Kafka/QStash
+- **Wiring multi-platform stacks**: Connecting environment variables and credentials across Vercel + Supabase + Upstash + Railway/Render
 
 ## Workflow Overview
 
@@ -40,8 +42,8 @@ When the user asks for Terraform help, follow this general workflow:
 ### Step 1: Understand the Scope
 
 Before writing any code, clarify:
-- **What cloud provider(s)?** AWS, Azure, GCP, or multi-cloud?
-- **What resources?** Networking, compute, databases, Kubernetes, etc.
+- **What provider(s)?** Traditional cloud (AWS, Azure, GCP), modern platforms (Vercel, Railway, Render, Supabase, Upstash), or a combination?
+- **What resources?** Networking, compute, databases, Kubernetes, frontend hosting, serverless functions, managed databases, caching?
 - **What environment strategy?** Single env, workspaces, separate state files, or Terragrunt?
 - **Existing infrastructure?** Greenfield or importing existing resources?
 - **Team size and workflow?** Solo developer or team with CI/CD and approvals?
@@ -57,6 +59,9 @@ Based on scope, select the appropriate pattern:
 | Team with shared modules | Module registry + remote state with locking |
 | Enterprise / multi-team | Terraform Cloud/Enterprise or Terragrunt with strict module versioning |
 | Existing infra to manage | Import workflow with state migration plan |
+| Modern full-stack (Vercel+Supabase+Upstash) | Flat or workspace-based with multi-provider wiring |
+| Frontend + dedicated backend (Vercel+Railway) | Module-per-service with shared variable outputs |
+| Multi-platform with backends (Render+Supabase+Upstash) | Directory-per-environment with reusable platform modules |
 
 **Reference:** See `references/architecture-patterns.md` for detailed guidance on each pattern.
 
@@ -266,7 +271,9 @@ repos:
 
 ## Provider Configuration
 
-Always pin provider versions explicitly:
+Always pin provider versions explicitly.
+
+**Traditional cloud providers:**
 
 ```hcl
 terraform {
@@ -289,7 +296,74 @@ terraform {
 }
 ```
 
+**Modern platform providers:**
+
+```hcl
+terraform {
+  required_version = ">= 1.5.0, < 2.0.0"
+
+  required_providers {
+    vercel = {
+      source  = "vercel/vercel"
+      version = "~> 2.0"
+    }
+    railway = {
+      source  = "terraform-community-providers/railway"
+      version = "~> 0.4"
+    }
+    render = {
+      source  = "render-oss/render"
+      version = "~> 1.0"
+    }
+    supabase = {
+      source  = "supabase/supabase"
+      version = "~> 1.0"
+    }
+    upstash = {
+      source  = "upstash/upstash"
+      version = "~> 1.0"
+    }
+  }
+}
+```
+
+Only include the providers you actually need — don't declare all of them if you're only using Vercel + Supabase, for example.
+
+**Provider maturity notes:**
+- **Vercel** (`vercel/vercel`) — Official, stable, well-maintained. Supports projects, deployments, domains, firewall, and environment variables.
+- **Railway** (`terraform-community-providers/railway`) — Community-maintained, actively developed. Covers projects, services, variables, custom domains. Not official from Railway.
+- **Render** (`render-oss/render`) — Official but in early access. Expect possible breaking changes; pin versions tightly.
+- **Supabase** (`supabase/supabase`) — Official, stable. Manages projects, settings, branches, and API keys.
+- **Upstash** (`upstash/upstash`) — Official, stable. Manages Redis databases, Kafka clusters/topics, and QStash.
+
+**Reference:** See `references/modern-platform-stack.md` for detailed provider configuration, resource examples, full-stack composition patterns, and environment variable wiring guides.
+
 After running `terraform init`, commit the `.terraform.lock.hcl` file. This ensures all team members and CI use the exact same provider binaries.
+
+## Modern Platform Stack Quick-Start
+
+When the user wants to Terraform a Vercel/Railway/Render + Supabase + Upstash stack, read `references/modern-platform-stack.md` for complete examples. Here's the essential pattern:
+
+**1. Configure providers** — Only include the ones you need. All authenticate via API tokens stored in environment variables.
+
+**2. Create backend services first** — Supabase (database/auth) and Upstash (cache/queues) produce connection strings that frontend/backend services need.
+
+**3. Wire environment variables** — The critical step. Use Terraform outputs from Supabase and Upstash as inputs to Vercel/Railway/Render environment variables:
+```hcl
+# Supabase project outputs → Vercel env vars
+# Upstash Redis outputs → Vercel env vars + Railway/Render env vars
+```
+
+**4. Security rules for variable wiring:**
+- `SUPABASE_ANON_KEY` — Safe for client-side (Vercel `NEXT_PUBLIC_*`), protected by Row Level Security
+- `SUPABASE_SERVICE_ROLE_KEY` — Server-only (Railway/Render), bypasses RLS
+- `DATABASE_URL` — Server-only, never expose to frontend
+- `UPSTASH_REDIS_REST_TOKEN` — Mark as `sensitive = true`
+
+**5. Common stack compositions:**
+- **Serverless full-stack**: Vercel + Supabase + Upstash (no dedicated backend, everything runs on edge/serverless)
+- **Frontend + backend**: Vercel + Railway + Supabase + Upstash (Railway for WebSockets, cron, workers)
+- **All-in-one hosting**: Render + Supabase + Upstash (Render handles both frontend and backend)
 
 ## Common Pitfalls and How to Avoid Them
 
@@ -303,6 +377,11 @@ After running `terraform init`, commit the `.terraform.lock.hcl` file. This ensu
 | `count` index shifting | Use `for_each` with stable keys instead |
 | Hardcoded values | Use `data` sources and `locals` for derivation |
 | Missing tags | Use `default_tags` in provider config or policy-as-code |
+| Leaking Supabase service_role_key to frontend | Only pass to server-side services (Railway/Render), never `NEXT_PUBLIC_*` |
+| Platform API tokens in code | Use env vars (`VERCEL_API_TOKEN`, etc.), never in `.tf` files |
+| Recreating Supabase project instead of importing | Always `import` existing projects — recreation destroys all data |
+| Render provider breaking changes | Pin to exact version during early access period |
+| Missing `team_id` on Vercel resources | Always specify when using team accounts |
 
 ## Security Considerations
 
@@ -314,6 +393,13 @@ After running `terraform init`, commit the `.terraform.lock.hcl` file. This ensu
 - Rotate Terraform service account credentials regularly
 - Enable state encryption at rest and in transit
 
+**Modern platform-specific security:**
+- Platform API tokens (Vercel, Railway, Render, Supabase, Upstash) are high-privilege — they can create, modify, and delete all resources. Treat them like root credentials.
+- Supabase `service_role_key` bypasses Row Level Security — only inject into server-side services, never into Vercel client-side env vars (`NEXT_PUBLIC_*`)
+- Upstash Redis passwords and REST tokens are stored in Terraform state — ensure state is encrypted and access-restricted
+- Use separate API tokens per environment when possible (e.g., separate Vercel tokens for dev vs prod)
+- All five platform providers store sensitive outputs in state — this reinforces why remote state with encryption is mandatory
+
 ## Reference Files Summary
 
 The `references/` directory contains deep-dive documentation:
@@ -322,6 +408,7 @@ The `references/` directory contains deep-dive documentation:
 - **`state-management.md`** — Backend setup scripts for all major providers, state migration procedures, disaster recovery, and troubleshooting common state issues
 - **`module-patterns.md`** — Complete reusable module examples for networking, compute, databases, and Kubernetes across AWS/Azure/GCP, including testing with Terratest
 - **`cicd-pipelines.md`** — Ready-to-use pipeline definitions for GitHub Actions, GitLab CI, Azure DevOps, and Terraform Cloud, with approval gates and policy checks
+- **`modern-platform-stack.md`** — Complete guide to Terraform providers for Vercel, Railway, Render, Supabase, and Upstash. Includes unified provider configuration, resource examples for each platform, full-stack composition patterns (serverless, frontend+backend, all-in-one), environment variable wiring maps, and secrets management for platform tokens
 
 ## Output Checklist
 

@@ -1,0 +1,31 @@
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Claude
+.claude/
+.claude-plugin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+!*.tfvars.example
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Secrets
+*.pem
+*.key
+*.p12
+*.pfx

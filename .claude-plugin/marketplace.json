@@ -5,7 +5,7 @@
     "url": "https://github.com/thangnc"
   },
   "metadata": {
-    "description": "A collection of Claude Code plugins for cloud infrastructure and DevOps engineering.",
+    "description": "A collection of Claude Code plugins for cloud infrastructure, DevOps engineering, and database design.",
     "version": "1.0.0"
   },
   "plugins": [
@@ -40,6 +40,32 @@
         "state",
         "ci-cd",
         "platform-engineering"
+      ]
+    },
+    {
+      "name": "db-design",
+      "source": "./plugins/db-design",
+      "description": "Database design and schema modeling skills for PostgreSQL with Prisma ORM. Includes a PostgreSQL Prisma specialist covering data modeling, indexing, constraints, performance patterns, and advanced PostgreSQL features.",
+      "version": "1.0.0",
+      "author": {
+        "name": "thangnc",
+        "url": "https://github.com/thangnc"
+      },
+      "repository": "https://github.com/thangnc/engineering-plugins",
+      "license": "MIT",
+      "keywords": [
+        "postgresql",
+        "prisma",
+        "database",
+        "schema",
+        "data-modeling",
+        "indexes",
+        "constraints",
+        "migrations",
+        "orm",
+        "sql",
+        "performance",
+        "db-design"
       ]
     }
   ]

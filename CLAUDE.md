@@ -29,6 +29,7 @@ plugins/
 | Plugin | Path | Skills |
 |---|---|---|
 | `cloud-devops` | `plugins/cloud-devops/` | `terraform-specialist` |
+| `db-design` | `plugins/db-design/` | `postgresql-prisma-specialist` |
 
 ## Marketplace Deployment
 
